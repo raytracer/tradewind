@@ -1,22 +1,28 @@
 $(document).ready(function() {
   $("#intro").click(intro);
+  $("#simulation").click(simulation);
+  $("#quiz").click(quiz);
 });
 
 function intro(event) {
-  //TODO: Delete old content
-  //      Add new content
+  $("#content").empty();
+  $("#content").append($("#intro-text").html());
   event.preventDefault();
 }
 
 function simulation(event) {
-  //TODO: Delete old content
-  //      Add new content
+  $("#content").empty();
+  new p5(defaultSketch, "content");
   event.preventDefault();
 }
 
 function quiz(event) {
-  //TODO: Delete old content
-  //      Add new content
+  $("#content").empty();
+  var source   = $("#quiz-template").html();
+  var template = Handlebars.compile(source);
+  var context = {answers: ["hello", "world"]};
+  var html    = template(context);
+  $("#content").append(html);
   event.preventDefault();
 }
 
@@ -89,4 +95,3 @@ var defaultSketch = function(sketch) {
   };
 };
 
-var myp5 = new p5(defaultSketch, "content");

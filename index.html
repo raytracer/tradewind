@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap 101 Template</title>
+    <title>Passatwinde</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -36,7 +36,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/handlebars-v2.0.0.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.3.13/p5.js"></script>
     <script src="js/main.js"></script>
+    <script id="intro-text" type="text/html">
+      <h2>Einleitung</h2>
+      <p>Inhalt...</p>
+    </script>
+    <script id="quiz-template" type="text/x-handlebars-template">
+      {{#each answers}}
+        <input type="radio">{{this}}<br>
+      {{/each}}
+    </script>
   </body>
 </html>
