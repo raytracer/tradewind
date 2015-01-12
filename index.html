@@ -44,9 +44,17 @@
       <p>Inhalt...</p>
     </script>
     <script id="quiz-template" type="text/x-handlebars-template">
-      {{#each answers}}
-        <input type="radio">{{this}}<br>
+			<form>
+      {{#each questions}}
+				<p>
+					<p>{{this.text}}</p>
+					{{#each answers}}
+						<input type="radio" name="{{../name}}" value="{{this}}" required> {{this}}<br>
+					{{/each}}
+				</p>
       {{/each}}
+			<button type="submit" class="btn btn-primary">&Uuml;berpr&uuml;fen</button>
+			</form>
     </script>
   </body>
 </html>

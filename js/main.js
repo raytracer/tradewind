@@ -20,15 +20,49 @@ function quiz(event) {
   $("#content").empty();
   var source   = $("#quiz-template").html();
   var template = Handlebars.compile(source);
-  var context = {answers: ["hello", "world"]};
+  var context = {questions: [
+		{
+			text: "Erste Frage:",
+			name: "q1",
+			correct: 1,
+			answers: ["erste antwort", "zweite antwort", "dritte Antwort", "vierte Antwort"]
+		},
+		{
+			text: "Zweite Frage:",
+			name: "q2",
+			correct: 1,
+			answers: ["erste antwort", "zweite antwort", "dritte Antwort", "vierte Antwort"]
+		},
+		{
+			text: "Dritte Frage:",
+			name: "q3",
+			correct: 2,
+			answers: ["erste antwort", "zweite antwort", "dritte Antwort", "vierte Antwort"]
+		}
+	]};
   var html    = template(context);
   $("#content").append(html);
+	$("form").submit(function(event) {
+		var result = true;
+		for (var i = 0; i < context.questions.length; i++) {
+			var q = context.questions[i];
+			result = $("input:radio[name='" + q.name + "']:checked").val() === q.answers[q.correct];
+		}
+
+		if (result) {
+			alert("alles richtig!");
+		} else {
+			alert("leider falsch!");
+		}
+
+		event.preventDefault();
+	});
   event.preventDefault();
 }
 
 var defaultSketch = function(sketch) {
   sketch.setup = function () {
-    sketch.createCanvas(1236, 800);
+    sketch.createCanvas(800, 600);
     sketch.smooth();
   };
 
@@ -39,15 +73,15 @@ var defaultSketch = function(sketch) {
     var warm = sketch.color(255, 0, 0);
     var cool = sketch.color(0, 0, 255);
 
-    var startx = 800;
-    var starty = 1000;
-    var start_interx = 900;
-    var start_intery = 700;
+    var startx = 100;
+    var starty = 200;
+    var start_interx = 200;
+    var start_intery = 300;
 
     var endx = 0;
     var endy = 10;
-    var end_interx = 450;
-    var end_intery = 682;
+    var end_interx = 400;
+    var end_intery = 500;
 
     var numArrows = 2;
     var numCurves = 10;
