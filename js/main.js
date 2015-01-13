@@ -1,26 +1,5 @@
 $(document).ready(function() {
-  $("#intro").click(intro);
-  $("#simulation").click(simulation);
-  $("#quiz").click(quiz);
-});
-
-function intro(event) {
-  $("#content").empty();
-  $("#content").append($("#intro-text").html());
-  event.preventDefault();
-}
-
-function simulation(event) {
-  $("#content").empty();
-  new p5(defaultSketch, "content");
-  event.preventDefault();
-}
-
-function quiz(event) {
-  $("#content").empty();
-  var source   = $("#quiz-template").html();
-  var template = Handlebars.compile(source);
-  var context = {questions: [
+var quizdata = {questions: [
 		{
 			text: "Erste Frage:",
 			name: "q1",
@@ -40,6 +19,45 @@ function quiz(event) {
 			answers: ["erste antwort", "zweite antwort", "dritte Antwort", "vierte Antwort"]
 		}
 	]};
+new Section("bla", "#intro-text", defaultSketch, quizdata);
+});
+
+
+var Section = function(name, introid, sketch, quizdata) {
+	this.introid = introid;
+	this.sketch = sketch;
+	this.quizdata = quizdata;
+	var self = this;
+  $("#intro").click(function (event) {
+			self.intro();
+			event.preventDefault();
+	});
+  $("#simulation").click(function (event) {
+			self.simulation();
+			event.preventDefault();
+	});
+  $("#quiz").click(function (event) {
+			self.quiz();
+			event.preventDefault();
+	});
+}
+
+
+Section.prototype.intro = function() {
+  $("#content").empty();
+  $("#content").append($(this.introid).html());
+}
+
+Section.prototype.simulation = function() {
+  $("#content").empty();
+  new p5(this.sketch, "content");
+}
+
+Section.prototype.quiz = function() {
+  $("#content").empty();
+  var source   = $("#quiz-template").html();
+  var template = Handlebars.compile(source);
+  var context = this.quizdata;
   var html    = template(context);
   $("#content").append(html);
 	$("form").submit(function(event) {
@@ -57,7 +75,6 @@ function quiz(event) {
 
 		event.preventDefault();
 	});
-  event.preventDefault();
 }
 
 var defaultSketch = function(sketch) {
