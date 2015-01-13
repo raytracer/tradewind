@@ -2,19 +2,16 @@ $(document).ready(function() {
 var quizdata = {questions: [
 		{
 			text: "Erste Frage:",
-			name: "q1",
 			correct: 1,
 			answers: ["erste antwort", "zweite antwort", "dritte Antwort", "vierte Antwort"]
 		},
 		{
 			text: "Zweite Frage:",
-			name: "q2",
 			correct: 1,
 			answers: ["erste antwort", "zweite antwort", "dritte Antwort", "vierte Antwort"]
 		},
 		{
 			text: "Dritte Frage:",
-			name: "q3",
 			correct: 2,
 			answers: ["erste antwort", "zweite antwort", "dritte Antwort", "vierte Antwort"]
 		}
@@ -58,19 +55,28 @@ Section.prototype.quiz = function() {
   var source   = $("#quiz-template").html();
   var template = Handlebars.compile(source);
   var context = this.quizdata;
+	for (var i = 0; i < context.questions.length; i++) {
+		context.questions[i].name = "q" + i;
+	}
   var html    = template(context);
   $("#content").append(html);
 	$("form").submit(function(event) {
-		var result = true;
+		var result = 0;
 		for (var i = 0; i < context.questions.length; i++) {
 			var q = context.questions[i];
-			result = $("input:radio[name='" + q.name + "']:checked").val() === q.answers[q.correct];
+			$("#" + q.name).removeClass("alert alert-danger");
+			if ($("input:radio[name='" + q.name + "']:checked").val() !== q.answers[q.correct]) {
+				result++;
+				$("#" + q.name).addClass("alert alert-danger");
+			}
 		}
 
-		if (result) {
-			alert("alles richtig!");
+		if (result === 0) {
+			alert("Alles richtig, bravo!");
+		} else if (result === 1) {
+			alert("Leider ist eine Antwort falsch.");
 		} else {
-			alert("leider falsch!");
+			alert("Leider sind " + result + " Antworten falsch.");
 		}
 
 		event.preventDefault();

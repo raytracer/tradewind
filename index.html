@@ -47,7 +47,7 @@
 			<form>
       {{#each questions}}
 				<p>
-					<p>{{this.text}}</p>
+					<p id="{{name}}">{{this.text}}</p>
 					{{#each answers}}
 						<input type="radio" name="{{../name}}" value="{{this}}" required> {{this}}<br>
 					{{/each}}
