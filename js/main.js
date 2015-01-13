@@ -1,4 +1,7 @@
 $(document).ready(function() {
+	new Section("ITC", "#intro-text", defaultSketch, quizdata);
+});
+
 var quizdata = {questions: [
 		{
 			text: "Erste Frage:",
@@ -15,25 +18,29 @@ var quizdata = {questions: [
 			correct: 2,
 			answers: ["erste antwort", "zweite antwort", "dritte Antwort", "vierte Antwort"]
 		}
-	]};
-new Section("bla", "#intro-text", defaultSketch, quizdata);
-});
-
+]};
 
 var Section = function(name, introid, sketch, quizdata) {
 	this.introid = introid;
 	this.sketch = sketch;
 	this.quizdata = quizdata;
 	var self = this;
-  $("#intro").click(function (event) {
+	var introNode = $('<li id="intro" role="presentation"><a href="#"></a></li>');
+	var simulationNode = introNode.clone();
+	var quizNode = introNode.clone();
+	$("a", introNode).text(name + " - Einführung");
+	$("a", simulationNode).text(name + " - Simulation");
+	$("a", quizNode).text(name + " - Quiz");
+	$("#navigation").append(introNode, simulationNode, quizNode);
+  introNode.click(function (event) {
 			self.intro();
 			event.preventDefault();
 	});
-  $("#simulation").click(function (event) {
+  simulationNode.click(function (event) {
 			self.simulation();
 			event.preventDefault();
 	});
-  $("#quiz").click(function (event) {
+  quizNode.click(function (event) {
 			self.quiz();
 			event.preventDefault();
 	});
