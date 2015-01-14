@@ -37,14 +37,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.3.13/p5.js"></script>
     <script src="js/main.js"></script>
     <script id="intro-text" type="text/html">
-      <h2>Einleitung</h2>
-      <p>Inhalt...</p>
+      <h2>Passat</h2>
+			<p>Ein Passatwind ist ein mäßig starker und sehr beständiger Wind, der in den Tropen bis zu etwa 30° geographischer Breite rund um den Erdball auftritt.</p>
+			<h3>Entstehung</h3>
+			<p>
+			Äquatornah steht die Sonne mittags fast senkrecht (bis zu 90° Einstrahlungswinkel, d. h. Stand im Zenit) und erwärmt dadurch die Luft über dem Boden sehr stark, obwohl die Tage nur 12 bis maximal 13,5 Stunden lang sind. Die erwärmte Luft verliert an Dichte und steigt auf, wodurch darunter (entlang der so genannten innertropischen Konvergenzzone – ITC bzw. ITCZ) über dem Erdboden eine „Tiefdruckrinne“ entsteht.
+			</p>
+			<p>
+			Beim Aufsteigen kühlt sich die Luft adiabatisch ab, so dass Wasser kondensiert (Wolkenbildung) und oft heftige Gewittergüsse niedergehen. Über die Verdunstung am Boden und die Kondensation in der Höhe, die Wärme freisetzt, wird zusätzliche Wärmeenergie von der Erdoberfläche in die Höhe befördert. An der Tropopause (in etwa 15–18 Kilometer Höhe) strömt die Luft nach Norden und Süden vom Äquator weg. Dabei kühlt die Luft zwar weiter ab, bleibt aber im Vergleich zu den Luftmassen der höheren Breiten dennoch relativ warm. Durch die Temperaturschichtung von der sehr warmen, aus der ITC stammenden Luft über der vergleichsweise weniger warmen Luft der höheren Breiten entsteht die stabile Passatinversion, die den vertikalen Luftaustausch weitgehend verhindert. Bei der Bewegung polwärts werden die Luftmassen auf einen engeren Raum zusammengedrängt, weil sich die Meridiane vom Äquator bis zu den Polen einander immer weiter annähern (zum Vergleich: Abstand zweier Meridiane am Äquator rund 111 km, beim 30. Breitengrad rund 96 km). Diese räumliche Einengung drängt auch die Luftmassen zusammen und zwingt sie näher Richtung Boden. Ein Großteil der polwärts strömenden Luftmassen sinkt im Bereich um ca. 30° Nord bzw. 30° Süd ab. Dadurch entstehen in diesen Regionen stabile Hochdruckgebiete. Beim Absinken erwärmt sich die Luft.
+			</p>
+			<h3>Simulation</h3>
+			<p>
+			In der folgenden Simulation soll das Verschieben der ITC während der Jahreszeiten demonstriert werden.
     </script>
     <script id="quiz-template" type="text/x-handlebars-template">
 			<form>
       {{#each questions}}
 				<p>
-					<p id="{{name}}">{{this.text}}</p>
+					<p><strong id="{{name}}">{{this.text}}</strong></p>
 					{{#each answers}}
 						<input type="radio" name="{{../name}}" value="{{this}}" required> {{this}}<br>
 					{{/each}}

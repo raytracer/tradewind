@@ -5,3 +5,7 @@
 html {
 	overflow-y: scroll;
 }
+
+strong.alert {
+	padding: 10px;
+}

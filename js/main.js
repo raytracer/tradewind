@@ -4,19 +4,19 @@ $(document).ready(function() {
 
 var quizdata = {questions: [
 		{
-			text: "Erste Frage:",
+			text: "Luft kühlt sich ab, beim ...",
 			correct: 1,
-			answers: ["erste antwort", "zweite antwort", "dritte Antwort", "vierte Antwort"]
+			answers: ["Absteigen", "Aufsteigen"]
 		},
 		{
-			text: "Zweite Frage:",
-			correct: 1,
-			answers: ["erste antwort", "zweite antwort", "dritte Antwort", "vierte Antwort"]
-		},
-		{
-			text: "Dritte Frage:",
+			text: "Die polwärts strömenden Luftmassen, sinken in (ungefähr) welchem Breitengrad wieder ab?",
 			correct: 2,
-			answers: ["erste antwort", "zweite antwort", "dritte Antwort", "vierte Antwort"]
+			answers: ["15", "20", "30", "45"]
+		},
+		{
+			text: "Welche Art von Luftaustausch verhindert die Passatinversion?",
+			correct: 0,
+			answers: ["vertikalen Luftaustausch", "horizontalen Luftaustausch", "diagonalen Luftaustausch"]
 		}
 ]};
 
@@ -90,6 +90,18 @@ Section.prototype.quiz = function() {
 	});
 }
 
+//Helper function to draw arrows, can be used in all sketches
+var drawArrow = function(sketch, cx, cy, len, angle){
+	sketch.push();
+	sketch.translate(cx, cy);
+	sketch.rotate(angle);
+	sketch.strokeWeight(5);
+	sketch.line(0,0,-len, 0);
+	sketch.line(0, 0, -8, -8);
+	sketch.line(0, 0, -8, 8);
+	sketch.pop();
+};
+
 var defaultSketch = function(sketch) {
   sketch.setup = function () {
     sketch.createCanvas(800, 600);
@@ -142,20 +154,10 @@ var defaultSketch = function(sketch) {
         var ay = sketch.bezierTangent(endx, endy, end_interx, end_intery, t);
 
         var a = sketch.atan2(ay, ax);
-        sketch.drawArrow(x,y,30,a);
+        drawArrow(sketch,x,y,30,a);
       }
     }
   };
 
-  sketch.drawArrow = function(cx, cy, len, angle){
-    sketch.push();
-    sketch.translate(cx, cy);
-    sketch.rotate(angle);
-    sketch.strokeWeight(5);
-    sketch.line(0,0,-len, 0);
-    sketch.line(0, 0, -8, -8);
-    sketch.line(0, 0, -8, 8);
-    sketch.pop();
-  };
 };
 
