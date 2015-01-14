@@ -146,7 +146,7 @@ var defaultSketch = function(sketch) {
 
       for (var i = 0; i < numArrows; i++) {
         var t = (t_base + 1/(i + 1)) % 1;
-        sketch.stroke(sketch.lerpColor(warm, cool, t));
+        sketch.stroke(sketch.lerpColor(cool, warm, t));
         var x = sketch.bezierPoint(startx, starty, start_interx, start_intery, t);
         var y = sketch.bezierPoint(endx, endy, end_interx, end_intery, t);
 
