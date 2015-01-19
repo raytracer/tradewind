@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Konvektion Animation</title>
+</head>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.3.13/p5.js"></script>
+<script type="text/javascript">
+
+var count;
+
+function setup() {
+  createCanvas(1236,800);
+  smooth();
+  frameRate(20);
+}
+
+function draw() {
+	fill(255);
+	var posx = 500;
+	var posy = 100;
+	var width = 300;
+	var heigth = 600;
+	rect(posx,posy,width,heigth);
+	fill(0);
+	if(frameCount<15){
+		count = startConfig(posx,posy,width,heigth);
+	}else{
+		goalConfig(posx,posy,width,heigth,count);
+	}
+	if (frameCount >= 14){
+		stroke(255,0,0);
+		strokeWeight(5);
+		line(posx,posy+heigth,posx+width,posy+heigth);
+	}
+}
+
+function startConfig(posx,posy,width,heigth){
+	var dist = 25;
+	var action = 2;
+	var result = 0;
+    for (var i = posx + dist; i < posx+width-5; i += dist)
+        for (var j = posy + dist; j < posy+heigth-5; j+=dist){
+          ellipse(i+random(-action,action),j+random(-action,action),5,5);
+          result++; 
+        }
+    return result;
+}
+
+function goalConfig(posx,posy,width,heigth, anz){
+	console.log(anz);
+	var count = 0;
+	var dist = 13;
+	var action = 1;
+	var actPosY = posy+dist;
+	
+	while (actPosY < posy+heigth){
+		for (var i = posx+10; i < posx+width-10; i += dist){
+			if (count < anz){
+		        ellipse(i+random(-action,action), actPosY+random(-action,action),5,5);
+		        count++;
+			}
+		}
+        action += 0.2;
+		dist+=2;
+		actPosY+=dist;
+	}
+	
+
+}
+
+</script>
+</body>
+</html>
