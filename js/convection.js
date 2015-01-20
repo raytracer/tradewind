@@ -178,8 +178,12 @@ var convectionSketch = function(sketch) {
 
 	sketch.drawWind = function(){
 		console.log("startWind");
-		drawCurve(sketch,sketch.posx+sketch.rectWidth+80,sketch.posx+sketch.rectWidth*5/8,sketch.posx+sketch.rectWidth/2+10,sketch.posx+sketch.rectWidth/2+10,sketch.posy+sketch.rectHeight-5,sketch.posy+sketch.rectHeight-5,sketch.posy+sketch.rectHeight*7/8,sketch.posy+sketch.rectHeight*3/4,3);
-		drawCurve(sketch,sketch.posx-80,sketch.posx+sketch.rectWidth*3/8,sketch.posx+sketch.rectWidth/2-10,sketch.posx+sketch.rectWidth/2-10,sketch.posy+sketch.rectHeight-5,sketch.posy+sketch.rectHeight-5,sketch.posy+sketch.rectHeight*7/8,sketch.posy+sketch.rectHeight*3/4,3);
+		//Wind side to middle
+		drawCoolWarmCurve(sketch,sketch.posx-80,sketch.posx+sketch.rectWidth*3/8,sketch.posx+sketch.rectWidth/2-20,sketch.posx+sketch.rectWidth/2-20,sketch.posy+sketch.rectHeight-5,sketch.posy+sketch.rectHeight-5,sketch.posy+sketch.rectHeight*7/8,sketch.posy+sketch.rectHeight*3/4,2);
+		drawCoolWarmCurve(sketch,sketch.posx+sketch.rectWidth+80,sketch.posx+sketch.rectWidth*5/8,sketch.posx+sketch.rectWidth/2+20,sketch.posx+sketch.rectWidth/2+20,sketch.posy+sketch.rectHeight-5,sketch.posy+sketch.rectHeight-5,sketch.posy+sketch.rectHeight*7/8,sketch.posy+sketch.rectHeight*3/4,2);
+		//Wind middle to side
+		drawWarmCoolCurve(sketch,sketch.posx+sketch.rectWidth/2-20,sketch.posx+sketch.rectWidth/2-20,sketch.posx+sketch.rectWidth*3/8,sketch.posx-80,sketch.posy+sketch.rectHeight*3/4,sketch.posy+sketch.rectHeight*1/8,sketch.posy+5,sketch.posy+5,2);
+		drawWarmCoolCurve(sketch,sketch.posx+sketch.rectWidth/2+20,sketch.posx+sketch.rectWidth/2+20,sketch.posx+sketch.rectWidth*5/8,sketch.posx+sketch.rectWidth+80,sketch.posy+sketch.rectHeight*3/4,sketch.posy+sketch.rectHeight*1/8,sketch.posy+5,sketch.posy+5,2);
 	}
 
 	sketch.mousePressed = function(){

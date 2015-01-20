@@ -10,10 +10,19 @@ var drawArrow = function(sketch, cx, cy, len, angle){
 	sketch.pop();
 };
 
-var drawCurve = function(sketch, x1, x2, x3, x4, y1, y2, y3, y4, numArrows) {
+var drawCoolWarmCurve = function(sketch, x1, x2, x3, x4, y1, y2, y3, y4, numArrows) {
     var warm = sketch.color(255, 0, 0);
     var cool = sketch.color(0, 0, 255);
+    drawCurve(sketch, x1, x2, x3, x4, y1, y2, y3, y4, cool, warm, numArrows);
+}
 
+var drawWarmCoolCurve = function(sketch, x1, x2, x3, x4, y1, y2, y3, y4, numArrows) {
+    var warm = sketch.color(255, 0, 0);
+    var cool = sketch.color(0, 0, 255);
+    drawCurve(sketch, x1, x2, x3, x4, y1, y2, y3, y4, warm, cool, numArrows);
+}
+
+var drawCurve = function(sketch, x1, x2, x3, x4, y1, y2, y3, y4, c1, c2, numArrows) {
     var startx = x1;
     var starty = x2;
     var start_interx = x3;
@@ -29,7 +38,7 @@ var drawCurve = function(sketch, x1, x2, x3, x4, y1, y2, y3, y4, numArrows) {
     //http://imaginary-institute.com/resources/Tech%20Note%2008%20Equal%20Spacing%20Along%20Curves.pdf
 		for (var i = 0; i < numArrows; i++) {
 			var t = (t_base + 1/(i + 1)) % 1;
-			sketch.stroke(sketch.lerpColor(cool, warm, t));
+			sketch.stroke(sketch.lerpColor(c1, c2, t));
 			var x = sketch.bezierPoint(startx, starty, start_interx, start_intery, t);
 			var y = sketch.bezierPoint(endx, endy, end_interx, end_intery, t);
 
