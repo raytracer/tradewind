@@ -53,7 +53,7 @@ var Section = function(name, explanationid, sketch, quizdata) {
 	var self = this;
 	var simulationNode = $('<li role="presentation"><a href="#"></a></li>');
 	var quizNode = simulationNode.clone();
-	$("a", simulationNode).text(name + " - Simulation");
+	$("a", simulationNode).text(name + " - Erklärung");
 	$("a", quizNode).text(name + " - Quiz");
 	$("#navigation").append(simulationNode, quizNode);
   simulationNode.click(function (event) {
@@ -71,13 +71,16 @@ var currentSketch = undefined;
 Section.prototype.simulation = function() {
   $("#content").empty();
   var explanationElem = $('<div id="explanation"></div>');
-	explanationElem.addClass("col-md-4");
-  explanationElem.append($(this.explanationid).html());
-  var simulationElem = $('<div id="simulation"></div>');
-	simulationElem.addClass("col-md-5");
-
+	explanationElem.append($(this.explanationid).html());
 	$("#content").append(explanationElem);
-	$("#content").append(simulationElem);
+	if (this.sketch === null) {
+		explanationElem.addClass("col-md-9");
+	} else {
+		explanationElem.addClass("col-md-4");
+		var simulationElem = $('<div id="simulation"></div>');
+		simulationElem.addClass("col-md-5");
+		$("#content").append(simulationElem);
+	}
 	
 	if (currentSketch) currentSketch.mousePressed = function() {};
   currentSketch = new p5(this.sketch, "simulation");
