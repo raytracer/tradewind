@@ -47,7 +47,7 @@ var convectionSketch = function(sketch) {
 		//der Kasten
 		sketch.fill(255);
 		sketch.stroke(0);
-		sketch.rect(sketch.posx,sketch.posy,sketch.rectWidth,sketch.rectHeight);
+	//	sketch.rect(sketch.posx,sketch.posy,sketch.rectWidth,sketch.rectHeight);
 
 		sketch.drawPoints();
 		sketch.evaluate();
@@ -59,8 +59,8 @@ var convectionSketch = function(sketch) {
 	}
 
 	sketch.drawPoints = function(){
-		sketch.fill(0);
-		sketch.stroke(0);
+		sketch.fill(0,0,0,127);
+		sketch.stroke(0,0,0,127);
 		for (var i = 0; i < sketch.points.length; i++){
 			sketch.ellipse(sketch.points[i][0],sketch.points[i][1],5,5);
 		}
