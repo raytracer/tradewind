@@ -1,5 +1,6 @@
 $(document).ready(function() {
-	new Section("ITC", "#intro-text", convectionSketch, quizdata);
+	startSection = new Section("ITC", "#intro-text", convectionSketch, quizdata);
+	startSection.start();
 });
 
 var quizdata = {questions: [
@@ -44,6 +45,10 @@ var Section = function(name, introid, sketch, quizdata) {
 			self.quiz();
 			event.preventDefault();
 	});
+}
+
+Section.prototype.start = function() {
+	this.intro();
 }
 
 var currentSketch = undefined;
