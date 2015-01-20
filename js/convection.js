@@ -9,7 +9,9 @@ var convectionSketch = function(sketch) {
 		if (sketch.displayWidth <= 300)
 			sketch.width = sketch.displayWidth-10;
 		else sketch.width = 300;
-		sketch.height = sketch.displayHeight-110;
+		if (sketch.displayHeight < 710)
+			sketch.height = sketch.displayHeight-110;
+		else sketch.height = 600;
 		sketch.points = [];
 		sketch.curCirc = [];
 		sketch.targetCirc = [];
