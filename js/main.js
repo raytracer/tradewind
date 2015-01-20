@@ -4,16 +4,32 @@ $(document).ready(function() {
 		$("#content").append($("#intro-text").html());
 		event.preventDefault();
 	});
-
-	new Section("Konvektion", "#konvektion-text", convectionSketch, quizdata);
+	new Section("Sonnenstand", "#solarAltitude-text", null, quizSunAltitude);
+	new Section("Luftdruck", "#konvektion-text", convectionSketch, quizdataConvection);
+	new Section("Tiefdruckrinne","",null, quizLowPressure);
 });
 
-var quizdata = {questions: [
+var quizSunAltitude = {questions:[
+                                  
+]};
+
+var quizdataConvection = {questions: [
 		{
 			text: "Luft kühlt sich ab, beim ...",
 			correct: 1,
 			answers: ["Absteigen", "Aufsteigen"]
 		},
+		{
+			text: "Wie bezeichnet man allgemein die horizontale Bewegung von Luft?",
+			correct: 0,
+			answers: ["Wind","Monsun","Föhn","Passat"]
+		},
+		{
+			text: "Ein Hochdruckgebiet hat ... Luftteilchen.",
+			correct: 0,
+			answers: ["mehr","weniger"]
+		}
+		/*
 		{
 			text: "Die polwärts strömenden Luftmassen, sinken in (ungefähr) welchem Breitengrad wieder ab?",
 			correct: 2,
@@ -24,6 +40,10 @@ var quizdata = {questions: [
 			correct: 0,
 			answers: ["vertikalen Luftaustausch", "horizontalen Luftaustausch", "diagonalen Luftaustausch"]
 		}
+		*/
+]};
+var quizLowPressure = {questions:[
+                                  
 ]};
 
 var Section = function(name, explanationid, sketch, quizdata) {

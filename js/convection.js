@@ -129,23 +129,23 @@ var convectionSketch = function(sketch) {
 	sketch.checkRiseOrientation = function(h){
 		if (sketch.posy < h && h < sketch.posy+sketch.rectHeight*1/6 && sketch.curCirc[0] > sketch.targetCirc[0]+2 && sketch.curCirc[1] < sketch.targetCirc[1]-2)
 			return -1;
-		if (sketch.posy+sketch.rectHeight*1/6 < h && h < sketch.posy+sketch.rectHeight*2/6 && sketch.curCirc[1] > sketch.targetCirc[1])
-			if (sketch.curCirc[2] < sketch.targetCirc[2])
+		if (sketch.posy+sketch.rectHeight*1/6 < h && h < sketch.posy+sketch.rectHeight*2/6 && sketch.curCirc[1] > sketch.targetCirc[1]+2)
+			if (sketch.curCirc[2] < sketch.targetCirc[2]-2)
 				return -1;
 			else return 1;
-		if (sketch.posy+sketch.rectHeight*2/6 < h && h < sketch.posy+sketch.rectHeight*3/6 && sketch.curCirc[2] > sketch.targetCirc[2])
-			if (sketch.curCirc[3] < sketch.targetCirc[3])
+		if (sketch.posy+sketch.rectHeight*2/6 < h && h < sketch.posy+sketch.rectHeight*3/6 && sketch.curCirc[2] > sketch.targetCirc[2]+2)
+			if (sketch.curCirc[3] < sketch.targetCirc[3]-2)
 				return -1;
 			else return 1;
-		if (sketch.posy+sketch.rectHeight*3/6 < h && h < sketch.posy+sketch.rectHeight*4/6 && sketch.curCirc[3] > sketch.targetCirc[3])
-			if (sketch.curCirc[4] < sketch.targetCirc[4])
+		if (sketch.posy+sketch.rectHeight*3/6 < h && h < sketch.posy+sketch.rectHeight*4/6 && sketch.curCirc[3] > sketch.targetCirc[3]+2)
+			if (sketch.curCirc[4] < sketch.targetCirc[4]-2)
 				return -1;
 			else return 1;
-		if (sketch.posy+sketch.rectHeight*4/6 < h && h < sketch.posy+sketch.rectHeight*5/6 && sketch.curCirc[4] > sketch.targetCirc[4])
-			if (sketch.curCirc[5] < sketch.targetCirc[5])
+		if (sketch.posy+sketch.rectHeight*4/6 < h && h < sketch.posy+sketch.rectHeight*5/6 && sketch.curCirc[4] > sketch.targetCirc[4]+2)
+			if (sketch.curCirc[5] < sketch.targetCirc[5]-2)
 				return -1;
 			else return 1;
-		if (sketch.posy+sketch.rectHeight*5/6 < h && h < sketch.posy+sketch.rectHeight && sketch.curCirc[5] > sketch.targetCirc[5])
+		if (sketch.posy+sketch.rectHeight*5/6 < h && h < sketch.posy+sketch.rectHeight && sketch.curCirc[5] > sketch.targetCirc[5]+2)
 			return 1;
 		return 0;
 	}
@@ -171,9 +171,9 @@ var convectionSketch = function(sketch) {
 		if (sketch.sunShining && !sketch.wind && sketch.curCirc[4]+sketch.curCirc[5] < sketch.points.length/5){
 			sketch.wind = true;
 		}
-		//if (sketch.frameCount%50==0){
-		//    for (var i = 0; i<sketch.curCirc.length; i++)
-		//        console.log(i+": " + sketch.curCirc[i]);
+		if (sketch.frameCount%50==0)
+		    for (var i = 0; i<sketch.curCirc.length; i++)
+		        console.log(i+": " + sketch.curCirc[i]);
 	}
 
 	sketch.drawWind = function(){
@@ -181,8 +181,10 @@ var convectionSketch = function(sketch) {
 		drawCoolWarmCurve(sketch,sketch.posx-80,sketch.posx+sketch.rectWidth*3/8,sketch.posx+sketch.rectWidth/2-20,sketch.posx+sketch.rectWidth/2-20,sketch.posy+sketch.rectHeight-5,sketch.posy+sketch.rectHeight-5,sketch.posy+sketch.rectHeight*7/8,sketch.posy+sketch.rectHeight*3/4,2);
 		drawCoolWarmCurve(sketch,sketch.posx+sketch.rectWidth+80,sketch.posx+sketch.rectWidth*5/8,sketch.posx+sketch.rectWidth/2+20,sketch.posx+sketch.rectWidth/2+20,sketch.posy+sketch.rectHeight-5,sketch.posy+sketch.rectHeight-5,sketch.posy+sketch.rectHeight*7/8,sketch.posy+sketch.rectHeight*3/4,2);
 		//Wind middle to side
-		drawWarmCoolCurve(sketch,sketch.posx+sketch.rectWidth/2-20,sketch.posx+sketch.rectWidth/2-20,sketch.posx+sketch.rectWidth*3/8,sketch.posx-80,sketch.posy+sketch.rectHeight*3/4,sketch.posy+sketch.rectHeight*1/8,sketch.posy+5,sketch.posy+5,2);
-		drawWarmCoolCurve(sketch,sketch.posx+sketch.rectWidth/2+20,sketch.posx+sketch.rectWidth/2+20,sketch.posx+sketch.rectWidth*5/8,sketch.posx+sketch.rectWidth+80,sketch.posy+sketch.rectHeight*3/4,sketch.posy+sketch.rectHeight*1/8,sketch.posy+5,sketch.posy+5,2);
+		var warm = sketch.color(255, 0, 0);
+	    var cool = sketch.color(128, 0, 128);
+		drawCurve(sketch,sketch.posx+sketch.rectWidth/2-20,sketch.posx+sketch.rectWidth/2-20,sketch.posx+sketch.rectWidth*3/8,sketch.posx-80,sketch.posy+sketch.rectHeight*3/4,sketch.posy+sketch.rectHeight*1/8,sketch.posy+5,sketch.posy+5,warm,cool,2);
+		drawCurve(sketch,sketch.posx+sketch.rectWidth/2+20,sketch.posx+sketch.rectWidth/2+20,sketch.posx+sketch.rectWidth*5/8,sketch.posx+sketch.rectWidth+80,sketch.posy+sketch.rectHeight*3/4,sketch.posy+sketch.rectHeight*1/8,sketch.posy+5,sketch.posy+5,warm,cool,2);
 	}
 
 	sketch.mousePressed = function(){
