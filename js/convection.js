@@ -168,7 +168,7 @@ var convectionSketch = function(sketch) {
 				sketch.curCirc[4]++;
 			else sketch.curCirc[5]++;
 		}
-		if (sketch.sunShining && !sketch.wind && sketch.curCirc[4]+sketch.curCirc[5] < sketch.points.length/4){
+		if (sketch.sunShining && !sketch.wind && sketch.curCirc[4]+sketch.curCirc[5] < sketch.points.length/5){
 			sketch.wind = true;
 		}
 		//if (sketch.frameCount%50==0){
