@@ -17,42 +17,45 @@ var actCirc;
 var sunShining;
 
 function setup() {
-  createCanvas(1236,800);
+  createCanvas(displayWidth-10,displayHeight-10);
   smooth();
   
   sunShining = false;
-  posx = 300;
-  posy = 100;
-  width = 300;
-  height = 600;
+  posx = 0;
+  posy = 60;
+  if (displayWidth <= 300)
+    width = displayWidth-10;
+  else width = 300;
+  height = displayHeight-110;
   points = [];
-  actCirc=[];
+  actCirc = [];
   
   var dist = 25;
-  for (var i = 0; i < 23; i++){
-      for (var j = 0; j < 11; j++){
+  for (var i = 0; i < height/dist-1; i++){
+      for (var j = 0; j < width/dist-1; j++){
     	  points[11*i+j] = [];
     	  points[11*i+j][0] = posx + 25 + j*dist;
     	  points[11*i+j][1] = posy + 25 + i*dist;
       }
-  }	  
+  }
+  console.log("w: " + displayWidth +", h: "+displayHeight);
 }
 
 function draw() {
-	//The sun
-	fill(255, 255, 0);
+    //The sun
+    fill(255, 255, 0);
     stroke(255);
     ellipse(posx + width/2,-100,width,width);
     //der Kasten
-	fill(255);
+    fill(255);
     stroke(0);
-	rect(posx,posy,width,height);
-	
-	drawPoints();
+    rect(posx,posy,width,height);
+
+    drawPoints();
     evaluate();
     if (sunShining)
-		heating();
-	else shakePoints(1);
+        heating();
+    else shakePoints(1);
 }
 
 function drawPoints(){
@@ -63,21 +66,21 @@ function drawPoints(){
 	}
 }
 function shakePoints(action){
-	for (var i = 0; i< points.length; i++){
-		points[i][0] = points[i][0] + random(-action,action);
-		//Horizontal Border
-		if (points[i][0] < posx + 5)
-			points[i][0] = posx + 5;
-		else if(points[i][0] > posx+width-5)
-			points[i][0] = posx+width-5;
-		
-		points[i][1] = points[i][1] + random(-action,action);
+    for (var i = 0; i< points.length; i++){
+        points[i][0] = points[i][0] + random(-action,action);
+        //Horizontal Border
+        if (points[i][0] < posx + 5)
+            points[i][0] = posx + 5;
+        else if(points[i][0] > posx+width-5)
+            points[i][0] = posx+width-5;
+
+        points[i][1] = points[i][1] + random(-action,action);
         //Vertical Border
-		if (points[i][1] < posy + 5)
+        if (points[i][1] < posy + 5)
             points[i][1] = posy + 5;
         else if(points[i][1] > posy+height-5)
             points[i][1] = posy+height-5;
-	}
+    }
 }
 function heating(){
 	//let the Sun shining
@@ -99,19 +102,22 @@ function heating(){
     //shake and rising
     for (var i = 0; i< points.length; i++){
     	var action = (points[i][1]-posy)/height*3+0.5;
+        
+        //The x-Value
         points[i][0] = points[i][0] + random(-action,action);
         if (points[i][0] < posx + 5)
             points[i][0] = posx + 5;
         else if(points[i][0] > posx+width-5)
             points[i][0] = posx+width-5;
         
+        //The y-Value
         var o = checkRiseOrientation(points[i][1]);
         if (o == -1)
-            points[i][1] = points[i][1] + random(-action,action*1.1);
+            points[i][1] = points[i][1] + random(-action,action*1.3);
         else if (o == 0)
         	points[i][1] = points[i][1] + random(-action,action);
         else if (o == +1)
-        	points[i][1] = points[i][1] + random(-action*1.1,action);
+        	points[i][1] = points[i][1] + random(-action*1.3,action);
         if (points[i][1] < posy + 5)
             points[i][1] = posy + 5;
         else if(points[i][1] > posy+height-5)
@@ -120,25 +126,25 @@ function heating(){
 }
 //prueft wohin die Punkte wandern sollen
 function checkRiseOrientation(h){
-	if (100 < h && h < 200 && actCirc[0] > 70 && actCirc[1] < 55)
+    if (posy < h && h < posy+height*1/6 && actCirc[0] > 70 && actCirc[1] < 55)
 		return -1;
-    if (200 < h && h < 300 && actCirc[1] > 57)
+    if (posy+height*1/6 < h && h < posy+height*2/6 && actCirc[1] > 57)
     	if (actCirc[2] < 47)
     		return -1;
     	else return 1;
-    if (300 < h && h < 400 && actCirc[2] > 47)
+    if (posy+height*2/6 < h && h < posy+height*3/6 && actCirc[2] > 47)
         if (actCirc[3] < 37)
             return -1;
         else return 1;
-    if (400 < h && h < 500 && actCirc[3] > 37)
+    if (posy+height*3/6 < h && h < posy+height*4/6 && actCirc[3] > 37)
         if (actCirc[4] < 27)
             return -1;
         else return 1;
-    if (500 < h && h < 600 && actCirc[4] > 27)
+    if (posy+height*4/6 < h && h < posy+height*5/6 && actCirc[4] > 27)
         if (actCirc[5] < 17)
             return -1;
         else return 1;
-    if (200 < h && h < 300 && actCirc[5] > 17)
+    if (posy+height*5/6 < h && h < posy+height && actCirc[5] > 17)
             return 1;
     return 0;
 }
@@ -149,40 +155,29 @@ function evaluate(){
         actCirc[i]=0;
     for (var i = 0 ; i < points.length; i++){
         var h = points[i][1];
-        if (h < 200)
+        if (h < posy+height*1/6)
             actCirc[0]++;
-        else if (h<300)
+        else if (h<posy+height*2/6)
             actCirc[1]++;
-        else if (h<400)
+        else if (h<posy+height*3/6)
             actCirc[2]++;
-        else if(h<500)
+        else if(h<posy+height*4/6)
             actCirc[3]++;
-        else if (h<600)
+        else if (h<posy+height*5/6)
             actCirc[4]++;
         else actCirc[5]++;
     }
-    if (frameCount%50==0)
-        for (var i = 0; i<actCirc.length; i++)
-            console.log(i+": " + actCirc[i]);
+    //if (frameCount%50==0)
+    //    for (var i = 0; i<actCirc.length; i++)
+    //        console.log(i+": " + actCirc[i]);
 }
 function mousePressed(){
-	var d= dist(mouseX, mouseY, posx + width/2, -100 );
-	if (d < width){
-		if (sunShining){
-			sunShining = false;
-			background(255);
-			
-			//Reset aller Punkte
-			for (var i = 0; i < 23; i++){
-			      for (var j = 0; j < 11; j++){
-			          points[11*i+j] = [];
-			          points[11*i+j][0] = posx + 25 + j*25;
-			          points[11*i+j][1] = posy + 25 + i*25;
-			      }
-			  } 
-		}
-		else sunShining = true;
-	}
+    var d= dist(mouseX, mouseY, posx + width/2, -100 );
+        if (d < width){
+            if (sunShining)
+                setup();
+            else sunShining = true;
+        }
 				
 }
 </script>
