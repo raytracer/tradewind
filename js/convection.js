@@ -12,7 +12,9 @@ var convectionSketch = function(sketch) {
 		sketch.height = sketch.displayHeight-110;
 		sketch.points = [];
 		sketch.curCirc = [];
+		sketch.targetCirc = [];
 
+		//initialise Points
 		var dist = 25;
 		for (var i = 0; i < sketch.height/dist-1; i++){
 			for (var j = 0; j < sketch.width/dist-1; j++){
@@ -21,6 +23,15 @@ var convectionSketch = function(sketch) {
 				sketch.points[11*i+j][1] = sketch.posy + 25 + i*dist;
 			}
 		}
+		
+		//Target Diservification at Heating
+		sketch.targetCirc[0] = sketch.points.length/6 + sketch.points.length/dist/2*5;
+		sketch.targetCirc[1] = sketch.points.length/6 + sketch.points.length/dist/2*3;
+		sketch.targetCirc[2] = sketch.points.length/6 + sketch.points.length/dist/2*1;
+		sketch.targetCirc[3] = sketch.points.length/6 - sketch.points.length/dist/2*1;
+		sketch.targetCirc[4] = sketch.points.length/6 - sketch.points.length/dist/2*3;
+		sketch.targetCirc[5] = sketch.points.length/6 - sketch.points.length/dist/2*5;
+		
 		console.log("w: " + sketch.displayWidth +", h: "+ sketch.displayHeight);
 	}
 
@@ -38,7 +49,7 @@ var convectionSketch = function(sketch) {
 		sketch.evaluate();
 		if (sketch.sunShining)
 			sketch.heating();
-		else sketch.shakePoints(1);
+		else sketch.shakePoints(2);
 	}
 
 	sketch.drawPoints = function(){
@@ -85,7 +96,7 @@ var convectionSketch = function(sketch) {
 
 		//shake and rising
 		for (var i = 0; i< sketch.points.length; i++){
-			var action = (sketch.points[i][1]-sketch.posy)/sketch.height*3+0.5;
+			var action = (sketch.points[i][1]-sketch.posy)/sketch.height*4+1.5;
 
 			//The x-Value
 			sketch.points[i][0] = sketch.points[i][0] + sketch.random(-action,action);
@@ -110,25 +121,25 @@ var convectionSketch = function(sketch) {
 	}
 	//prueft wohin die Punkte wandern sollen
 	sketch.checkRiseOrientation = function(h){
-		if (sketch.posy < h && h < sketch.posy+sketch.height*1/6 && sketch.curCirc[0] > 70 && sketch.curCirc[1] < 55)
+		if (sketch.posy < h && h < sketch.posy+sketch.height*1/6 && sketch.curCirc[0] > sketch.targetCirc[0]+2 && sketch.curCirc[1] < sketch.targetCirc[1]-2)
 			return -1;
-		if (sketch.posy+sketch.height*1/6 < h && h < sketch.posy+sketch.height*2/6 && sketch.curCirc[1] > 57)
-			if (sketch.curCirc[2] < 47)
+		if (sketch.posy+sketch.height*1/6 < h && h < sketch.posy+sketch.height*2/6 && sketch.curCirc[1] > sketch.targetCirc[1])
+			if (sketch.curCirc[2] < sketch.targetCirc[2])
 				return -1;
 			else return 1;
-		if (sketch.posy+sketch.height*2/6 < h && h < sketch.posy+sketch.height*3/6 && sketch.curCirc[2] > 47)
-			if (sketch.curCirc[3] < 37)
+		if (sketch.posy+sketch.height*2/6 < h && h < sketch.posy+sketch.height*3/6 && sketch.curCirc[2] > sketch.targetCirc[2])
+			if (sketch.curCirc[3] < sketch.targetCirc[3])
 				return -1;
 			else return 1;
-		if (sketch.posy+sketch.height*3/6 < h && h < sketch.posy+sketch.height*4/6 && sketch.curCirc[3] > 37)
-			if (sketch.curCirc[4] < 27)
+		if (sketch.posy+sketch.height*3/6 < h && h < sketch.posy+sketch.height*4/6 && sketch.curCirc[3] > sketch.targetCirc[3])
+			if (sketch.curCirc[4] < sketch.targetCirc[4])
 				return -1;
 			else return 1;
-		if (sketch.posy+sketch.height*4/6 < h && h < sketch.posy+sketch.height*5/6 && sketch.curCirc[4] > 27)
-			if (sketch.curCirc[5] < 17)
+		if (sketch.posy+sketch.height*4/6 < h && h < sketch.posy+sketch.height*5/6 && sketch.curCirc[4] > sketch.targetCirc[4])
+			if (sketch.curCirc[5] < sketch.targetCirc[5])
 				return -1;
 			else return 1;
-		if (sketch.posy+sketch.height*5/6 < h && h < sketch.posy+sketch.height && sketch.curCirc[5] > 17)
+		if (sketch.posy+sketch.height*5/6 < h && h < sketch.posy+sketch.height && sketch.curCirc[5] > sketch.targetCirc[5])
 			return 1;
 		return 0;
 	}
