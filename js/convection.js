@@ -1,18 +1,19 @@
 var convectionSketch = function(sketch) {
 	sketch.setup = function() {
-		sketch.createCanvas(sketch.displayWidth-10,sketch.displayHeight-50);
+		var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+		var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+		sketch.createCanvas(w/2.0, h);
 		sketch.smooth();
 
 		sketch.wind = false;
 		sketch.sunShining = false;
 		sketch.posx = 100;
 		sketch.posy = 60;
-		if (sketch.displayWidth <= 510)
-			sketch.rectWidth = sketch.displayWidth-210;
+		if ( w <= 510)
+			sketch.rectWidth = w - 210;
 		else sketch.rectWidth = 300;
-		if (sketch.displayHeight < 715)
-			sketch.rectHeight = sketch.displayHeight-115;
-		else sketch.rectHeight = 600;
+		if (h < 715)
+			sketch.rectHeight = h - 115;
 		sketch.points = [];
 		sketch.curCirc = [];
 		sketch.targetCirc = [];
@@ -34,8 +35,6 @@ var convectionSketch = function(sketch) {
 		sketch.targetCirc[3] = sketch.points.length/6 - sketch.points.length/dist/2*1;
 		sketch.targetCirc[4] = sketch.points.length/6 - sketch.points.length/dist/2*3;
 		sketch.targetCirc[5] = sketch.points.length/6 - sketch.points.length/dist/2*5;
-		
-		console.log("w: " + sketch.displayWidth +", h: "+ sketch.displayHeight);
 	}
 
 	sketch.draw = function() {
@@ -177,7 +176,6 @@ var convectionSketch = function(sketch) {
 	}
 
 	sketch.drawWind = function(){
-		console.log("startWind");
 		//Wind side to middle
 		drawCoolWarmCurve(sketch,sketch.posx-80,sketch.posx+sketch.rectWidth*3/8,sketch.posx+sketch.rectWidth/2-20,sketch.posx+sketch.rectWidth/2-20,sketch.posy+sketch.rectHeight-5,sketch.posy+sketch.rectHeight-5,sketch.posy+sketch.rectHeight*7/8,sketch.posy+sketch.rectHeight*3/4,2);
 		drawCoolWarmCurve(sketch,sketch.posx+sketch.rectWidth+80,sketch.posx+sketch.rectWidth*5/8,sketch.posx+sketch.rectWidth/2+20,sketch.posx+sketch.rectWidth/2+20,sketch.posy+sketch.rectHeight-5,sketch.posy+sketch.rectHeight-5,sketch.posy+sketch.rectHeight*7/8,sketch.posy+sketch.rectHeight*3/4,2);

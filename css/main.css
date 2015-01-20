@@ -9,3 +9,7 @@ html {
 strong.alert {
 	padding: 10px;
 }
+
+#defaultCanvas {
+	position: fixed;
+}

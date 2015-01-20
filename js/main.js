@@ -1,7 +1,11 @@
 $(document).ready(function() {
-	startSection = new Section("ITC", "#intro-text", convectionSketch, quizdata);
-	new Section("ITC", "#intro-text", defaultSketch, quizdata);
-	startSection.start();
+	$("#intro").click(function(event) {
+		$("#content").empty();
+		$("#content").append($("#intro-text").html());
+		event.preventDefault();
+	});
+
+	new Section("Konvektion", "#konvektion-text", convectionSketch, quizdata);
 });
 
 var quizdata = {questions: [
@@ -22,22 +26,16 @@ var quizdata = {questions: [
 		}
 ]};
 
-var Section = function(name, introid, sketch, quizdata) {
-	this.introid = introid;
+var Section = function(name, explanationid, sketch, quizdata) {
+	this.explanationid = explanationid;
 	this.sketch = sketch;
 	this.quizdata = quizdata;
 	var self = this;
-	var introNode = $('<li id="intro" role="presentation"><a href="#"></a></li>');
-	var simulationNode = introNode.clone();
-	var quizNode = introNode.clone();
-	$("a", introNode).text(name + " - Einführung");
+	var simulationNode = $('<li role="presentation"><a href="#"></a></li>');
+	var quizNode = simulationNode.clone();
 	$("a", simulationNode).text(name + " - Simulation");
 	$("a", quizNode).text(name + " - Quiz");
-	$("#navigation").append(introNode, simulationNode, quizNode);
-  introNode.click(function (event) {
-			self.intro();
-			event.preventDefault();
-	});
+	$("#navigation").append(simulationNode, quizNode);
   simulationNode.click(function (event) {
 			self.simulation();
 			event.preventDefault();
@@ -48,22 +46,21 @@ var Section = function(name, introid, sketch, quizdata) {
 	});
 }
 
-Section.prototype.start = function() {
-	this.intro();
-}
-
 var currentSketch = undefined;
-
-Section.prototype.intro = function() {
-  $("#content").empty();
-  $("#content").append($(this.introid).html());
-	if (currentSketch) currentSketch.mousePressed = function() {};
-}
 
 Section.prototype.simulation = function() {
   $("#content").empty();
+  var explanationElem = $('<div id="explanation"></div>');
+	explanationElem.addClass("col-md-4");
+  explanationElem.append($(this.explanationid).html());
+  var simulationElem = $('<div id="simulation"></div>');
+	simulationElem.addClass("col-md-5");
+
+	$("#content").append(explanationElem);
+	$("#content").append(simulationElem);
+	
 	if (currentSketch) currentSketch.mousePressed = function() {};
-  currentSketch = new p5(this.sketch, "content");
+  currentSketch = new p5(this.sketch, "simulation");
 }
 
 Section.prototype.quiz = function() {
