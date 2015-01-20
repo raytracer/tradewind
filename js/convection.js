@@ -162,6 +162,5 @@ var convectionSketch = function(sketch) {
 				sketch.setup();
 			else sketch.sunShining = true;
 		}
-
 	}
 }

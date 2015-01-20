@@ -46,19 +46,23 @@ var Section = function(name, introid, sketch, quizdata) {
 	});
 }
 
+var currentSketch = undefined;
 
 Section.prototype.intro = function() {
   $("#content").empty();
   $("#content").append($(this.introid).html());
+	if (currentSketch) currentSketch.mousePressed = function() {};
 }
 
 Section.prototype.simulation = function() {
   $("#content").empty();
-  new p5(this.sketch, "content");
+	if (currentSketch) currentSketch.mousePressed = function() {};
+  currentSketch = new p5(this.sketch, "content");
 }
 
 Section.prototype.quiz = function() {
   $("#content").empty();
+	if (currentSketch) currentSketch.mousePressed = function() {};
   var source   = $("#quiz-template").html();
   var template = Handlebars.compile(source);
   var context = this.quizdata;
