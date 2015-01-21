@@ -13,3 +13,7 @@ strong.alert {
 #defaultCanvas {
 	position: fixed;
 }
+
+#explanation {
+	text-align: justify;
+}
