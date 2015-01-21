@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	$("#content").append($("#intro-text").html());
 	$("#intro").click(function(event) {
 		$("#content").empty();
 		$("#content").append($("#intro-text").html());
