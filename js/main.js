@@ -7,7 +7,9 @@ $(document).ready(function() {
 	});
 	new Section("Sonnenstand", "#solarAltitude-text", null, quizSunAltitude);
 	new Section("Luftdruck", "#konvektion-text", convectionSketch, quizdataConvection);
-	new Section("Tiefdruckrinne","",null, quizLowPressure);
+	new Section("Tiefdruckrinne","#lowPressure-text",null, quizLowPressure);
+	new Section("Corioliskraft","#coriolis-text",null, quizCoriolis);
+	new Section("Passatzirkulation","#passat-text",null, quizCirculation)
 });
 
 var quizSunAltitude = {questions:[
@@ -46,7 +48,12 @@ var quizdataConvection = {questions: [
 var quizLowPressure = {questions:[
                                   
 ]};
-
+var quizCoriolis = {questions:[
+                                  
+]};
+var quizCirculation = {questions:[
+                                  
+]};
 var Section = function(name, explanationid, sketch, quizdata) {
 	this.explanationid = explanationid;
 	this.sketch = sketch;
