@@ -8,7 +8,7 @@ $(document).ready(function() {
 	new Section("Sonnenstand", "#solarAltitude-text", null, quizSunAltitude);
 	new Section("Luftdruck", "#konvektion-text", convectionSketch, quizdataConvection);
 	new Section("Tiefdruckrinne","#lowPressure-text",null, quizLowPressure);
-	new Section("Corioliskraft","#coriolis-text",null, quizCoriolis);
+	new Section("Corioliskraft","#coriolis-text", coriolisSketch, quizCoriolis);
 	new Section("Passatzirkulation","#passat-text",null, quizCirculation)
 });
 
