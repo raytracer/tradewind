@@ -12,7 +12,21 @@ var coriolisSketch = function(sketch) {
 		sketch.buttonW = 90;
 		sketch.dimension = false;
 
+		//For 2D
 		sketch.speed = 1;
+		sketch.midd = 150;
+		sketch.diameter = 100;
+		sketch.lines2D = [];
+		sketch.path = [];
+		sketch.path[0] = [];
+		sketch.path[0][0] = sketch.midd;
+		sketch.path[0][1] = sketch.midd;
+		for (var i = 0; i<8; i++){
+			var val = sketch.rotateAtAngle(sketch.midd,sketch.midd,sketch.midd,sketch.midd+100,i * sketch.PI/4);
+			sketch.lines2D[i]=[];
+			sketch.lines2D[i][0]=val[0];
+			sketch.lines2D[i][1]=val[1];
+		} 
 	}
 
 	sketch.draw = function(){
@@ -35,19 +49,29 @@ var coriolisSketch = function(sketch) {
 		for (var i = 200; i> 0 ; i-=25){
 			sketch.ellipse(150,150,i,i);
 		}
-		sketch.line(150,150,50,150);
-		sketch.line(150,150,250,150);
-		sketch.line(150,150,150,250);
-		sketch.line(150,150,79,79);
-		sketch.line(150,150,79,221);
-		sketch.line(150,150,221,79);
-		sketch.line(150,150,221,221);
 		sketch.stroke(255,0,0);
-		sketch.line(150,150,150,50);
+		for (var i = 0; i < sketch.lines2D.length; i++){
+			sketch.line(sketch.midd,sketch.midd,sketch.lines2D[i][0],sketch.lines2D[i][1]);
+			sketch.stroke(0);
+			//compute the next Strokes
+			var val = sketch.rotateAtAngle(sketch.midd,sketch.midd,sketch.lines2D[i][0],sketch.lines2D[i][1],sketch.radians(45.0));
+			sketch.println(val[0]);
+			sketch.lines2D[i][0] = val[0];
+			sketch.lines2D[i][1] = val[1];
+		}
 	}
 
 	sketch.draw3D = function(){
 
+	}
+
+	sketch.rotateAtAngle = function(midX, midY, pX, pY, angle){
+		var d = sketch.sqrt(sketch.pow(midX-pX,2)+sketch.pow(midY-pY,2));
+		var phi = sketch.acos(sketch.abs(pX-midX)/d);
+		var result = [];
+		result[0] = midX+sketch.cos(angle+phi)*d;
+		result[1] = midY+sketch.sin(angle+phi)*d;
+		return result;
 	}
 
 	sketch.mousePressed = function(){
