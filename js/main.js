@@ -13,6 +13,21 @@ $(document).ready(function() {
 });
 
 var quizSunAltitude = {questions:[
+		{
+			text: "Wenn die Sonne im Zenit steht, ist die Energie der Sonnenstrahlen auf der Erde am...",
+			correct: 0,
+			answers: ["... höchsten.", "... niedrigsten."]
+		},
+		{
+			text: "Wie oft steht die Sonne innerhalb eines Jahres am Äquator im Zenit?",
+			correct: 2,
+			answers: ["0","1","2","3","4"]
+		},
+		{
+			text: "An welchen Breitengraden befinden sich die Wendekreise?",
+			correct: 0,
+			answers: ["23,5°N  und 23,5°S","41,7°N und  23,5°S","23,5°N und 41,7°S"]
+		}
                                   
 ]};
 
