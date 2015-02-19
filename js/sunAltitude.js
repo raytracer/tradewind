@@ -8,7 +8,7 @@ var sunSketch = function(sketch) {
 		sketch.earthsize = Math.min(sketch.w/2,sketch.h)*0.7;
 		sketch.slider = sketch.createSlider(0,364,0);
 		sketch.slider.position(sketch.w/4-sketch.earthsize/2, sketch.earthsize/2+sketch.h/2+10);
-		slider.size(sketch.earthsize, 10);
+		sketch.slider.size(sketch.earthsize, 10);
 		sketch.smooth();
 	
 		
@@ -49,12 +49,13 @@ var sunSketch = function(sketch) {
 	}
 	
 	sketch.drawDate = function() {
+		var day = sketch.slider.value();
+		var months = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
 		sketch.stroke(0);
 		sketch.fill(0);
 		var textSize = 15;
 		sketch.textFont('Helvetica');
 		sketch.textSize(textSize);
 		sketch.text('Dezember', sketch.w/4 - textSize * 2, sketch.h - textSize);
-		console.log(sketch.slider.value());
 	}
 }
