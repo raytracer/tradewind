@@ -51,5 +51,6 @@ var sunSketch = function(sketch) {
 		sketch.textFont('Helvetica');
 		sketch.textSize(textSize);
 		sketch.text('Dezember', sketch.w/4 - textSize * 2, sketch.h - textSize);
+		console.log(sketch.slider.value());
 	}
 }
