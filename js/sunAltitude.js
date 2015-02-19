@@ -51,11 +51,13 @@ var sunSketch = function(sketch) {
 	sketch.drawDate = function() {
 		var day = sketch.slider.value();
 		var months = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+
+		var month = months[Math.floor(day/365 * 12)];
 		sketch.stroke(0);
 		sketch.fill(0);
 		var textSize = 15;
 		sketch.textFont('Helvetica');
 		sketch.textSize(textSize);
-		sketch.text('Dezember', sketch.w/4 - textSize * 2, sketch.h - textSize);
+		sketch.text(month, sketch.w/4 - textSize * (month.length/4), sketch.h - textSize);
 	}
 }
