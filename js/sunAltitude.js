@@ -7,7 +7,8 @@ var sunSketch = function(sketch) {
 		sketch.createCanvas(sketch.w/2.0, sketch.h);
 		sketch.earthsize = Math.min(sketch.w/2,sketch.h)*0.7;
 		slider = sketch.createSlider(0,364,0);
-		slider.position(20,20);
+		slider.position(sketch.w/4-sketch.earthsize/2, sketch.earthsize/2+sketch.h/2+10);
+		slider.size(sketch.earthsize, 10);
 		sketch.smooth();
 	
 		
