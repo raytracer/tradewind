@@ -23,19 +23,19 @@ var coriolisSketch = function(sketch) {
 		sketch.middX = 150;
 		sketch.middY = 200;
 		sketch.diameter = 150;
-		sketch.rotate = 1.25;
+		sketch.currentRotation = 0;
+		sketch.rotAngle = 1.25;
 		sketch.earth = sketch.loadImage("images/satelitenbild-nordhalbkugel.png");
-		sketch.imageMode(sketch.CENTER);
 		sketch.setup2D();
 	}
 
 	sketch.draw = function(){
 		if (sketch.speedSlider.value() == 0){
-			sketch.frameRate(1);
 			sketch.pause = true;
 		}else{
 			sketch.frameRate(sketch.speedSlider.value());
 			sketch.pause = false;
+			sketch.currentRotation += sketch.rotAngle;
 		}
 		sketch.background(255);
 		sketch.stroke(0);
@@ -47,7 +47,12 @@ var coriolisSketch = function(sketch) {
 		sketch.rect(sketch.buttonX, sketch.buttonY, sketch.buttonW, sketch.buttonH);
 		if (sketch.switch){
 			sketch.text("Kartenansicht",sketch.buttonX,sketch.buttonY+sketch.buttonH*3/4);
-			sketch.image(sketch.earth,sketch.middX,sketch.middY,sketch.diameter*2,sketch.diameter*2);
+			sketch.imageMode(sketch.CENTER);
+			sketch.rotate(sketch.radians(-sketch.currentRotation));
+			//sketch.image(sketch.earth,sketch.middX,sketch.middY,sketch.diameter*2,sketch.diameter*2);
+			var val = sketch.rotateAtAngle(0, 0, sketch.middX, sketch.middY,sketch.radians(-sketch.currentRotation));
+			sketch.image(sketch.earth,val[0],val[1],sketch.diameter*2,sketch.diameter*2);
+			sketch.rotate(sketch.radians(sketch.currentRotation));
 		}else{
 			sketch.text("Satelitenbild",sketch.buttonX,sketch.buttonY+sketch.buttonH*3/4);
 			sketch.ellipse(sketch.middX,sketch.middY,sketch.diameter*2,sketch.diameter*2);
@@ -56,17 +61,19 @@ var coriolisSketch = function(sketch) {
 	}
 
 	sketch.setup2D = function(){
-		sketch.lines2D = [];
 		sketch.path = [];
 		sketch.path[0] = [];
 		sketch.path[0][0] = sketch.middX;
 		sketch.path[0][1] = sketch.middY;
-		for (var i = 0; i<8; i++){
-			var val = sketch.rotateAtAngle(sketch.middX, sketch.middY, sketch.middX, sketch.middY-sketch.diameter, i*sketch.PI/4);
-			sketch.lines2D[i]=[];
-			sketch.lines2D[i][0]=val[0];
-			sketch.lines2D[i][1]=val[1];
-		} 
+		if (!sketch.switch){
+			sketch.lines2D = [];
+			for (var i = 0; i<8; i++){
+				var val = sketch.rotateAtAngle(sketch.middX, sketch.middY, sketch.middX, sketch.middY-sketch.diameter, i*sketch.PI/4);
+				sketch.lines2D[i]=[];
+				sketch.lines2D[i][0]=val[0];
+				sketch.lines2D[i][1]=val[1];
+			}
+		}
 	}
 	
 	sketch.draw2D = function(){
@@ -79,7 +86,7 @@ var coriolisSketch = function(sketch) {
 			
 			//compute the next Strokes
 			if(!sketch.pause){
-				var val = sketch.rotateAtAngle(sketch.middX,sketch.middY,sketch.lines2D[i][0],sketch.lines2D[i][1],sketch.radians(sketch.rotate));
+				var val = sketch.rotateAtAngle(sketch.middX,sketch.middY,sketch.lines2D[i][0],sketch.lines2D[i][1],sketch.radians(sketch.rotAngle));
 				sketch.lines2D[i][0] = val[0];
 				sketch.lines2D[i][1] = val[1];
 			}
@@ -91,12 +98,17 @@ var coriolisSketch = function(sketch) {
 			sketch.path[sketch.path.length-1][0]=sketch.path[sketch.path.length-2][0];
 			sketch.path[sketch.path.length-1][1]=sketch.path[sketch.path.length-2][1]+5;
 		}
-		sketch.fill(0,0,255);
-		sketch.stroke(0,0,255);
+		if (sketch.switch){
+			sketch.fill(255,160,0);
+			sketch.stroke(255,160,0);
+		}else{
+			sketch.fill(0,0,255);
+			sketch.fill(0,0,255);
+		}
 		for (var i=0; i < sketch.path.length;i++){
 			sketch.ellipse(sketch.path[i][0], sketch.path[i][1], 5, 5);
 			if(!sketch.pause){
-				var val = sketch.rotateAtAngle(sketch.middX, sketch.middY, sketch.path[i][0], sketch.path[i][1], sketch.radians(sketch.rotate));
+				var val = sketch.rotateAtAngle(sketch.middX, sketch.middY, sketch.path[i][0], sketch.path[i][1], sketch.radians(sketch.rotAngle));
 				sketch.path[i][0] = val[0];
 				sketch.path[i][1] = val[1];
 

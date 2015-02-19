@@ -14,7 +14,7 @@ $(document).ready(function() {
 
 var quizSunAltitude = {questions:[
 		{
-			text: "Wenn die Sonne im Zenit steht, ist die Energie der Sonnenstrahlen auf der Erde am...",
+			text: "Wenn die Sonne an einem Ort im Zenit steht, ist die Energie der Sonnenstrahlen dort am...",
 			correct: 0,
 			answers: ["... höchsten.", "... niedrigsten."]
 		},
