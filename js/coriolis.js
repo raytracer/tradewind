@@ -2,28 +2,30 @@ var coriolisSketch = function(sketch) {
 	sketch.setup = function() {
 	//	var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 	//	var h = Math.max(doucment.documentElement.clientHeight, window.innerHeight || 0);
-		sketch.createCanvas(300, 500);
+		sketch.createCanvas(300, 375);
 		sketch.smooth();
 	//	sketch.frameRate(1);
 		
-		//The Button for switch 2D/3D
+		//The Button for switch Earth/Abstract
 		sketch.buttonX = 10;
-		sketch.buttonY = 10;
-		sketch.buttonH = 20;
+		sketch.buttonY = 350;
+		sketch.buttonH = 18;
 		sketch.buttonW = 90;
-		sketch.dimension = false;
-
+		sketch.switch = false;
+		
 		//Slider for speed
 		sketch.speedSlider = sketch.createSlider(0, 50, 5);
 		sketch.speedSlider.size(150,10);
-		sketch.speedSlider.position(130,sketch.buttonY+sketch.buttonH+17);
+		sketch.speedSlider.position(150,10);
 		sketch.pause = false;
 		
 		//For 2D
 		sketch.middX = 150;
 		sketch.middY = 200;
-		sketch.diameter = 125;
+		sketch.diameter = 150;
 		sketch.rotate = 1.25;
+		sketch.earth = sketch.loadImage("images/satelitenbild-nordhalbkugel.png");
+		sketch.imageMode(sketch.CENTER);
 		sketch.setup2D();
 	}
 
@@ -38,15 +40,19 @@ var coriolisSketch = function(sketch) {
 		sketch.background(255);
 		sketch.stroke(0);
 		sketch.fill(255);
-		sketch.text("Geschwindigkeit:",sketch.buttonX, sketch.buttonY+sketch.buttonH+25);
+		var textSize = 15;
+		sketch.textFont('Helvetica');
+		sketch.textSize(textSize);
+		sketch.text("Geschwindigkeit:",15, 15);
 		sketch.rect(sketch.buttonX, sketch.buttonY, sketch.buttonW, sketch.buttonH);
-		if (sketch.dimension){
-			sketch.text("wechsel zu 2D",sketch.buttonX,sketch.buttonY+sketch.buttonH*2/3);
-			sketch.draw3D();
+		if (sketch.switch){
+			sketch.text("Kartenansicht",sketch.buttonX,sketch.buttonY+sketch.buttonH*3/4);
+			sketch.image(sketch.earth,sketch.middX,sketch.middY,sketch.diameter*2,sketch.diameter*2);
 		}else{
-			sketch.text("wechsel zu 3D",sketch.buttonX,sketch.buttonY+sketch.buttonH*2/3);
-			sketch.draw2D();
+			sketch.text("Satelitenbild",sketch.buttonX,sketch.buttonY+sketch.buttonH*3/4);
+			sketch.ellipse(sketch.middX,sketch.middY,sketch.diameter*2,sketch.diameter*2);
 		}
+		sketch.draw2D();
 	}
 
 	sketch.setup2D = function(){
@@ -66,10 +72,6 @@ var coriolisSketch = function(sketch) {
 	sketch.draw2D = function(){
 		sketch.stroke(0);
 		sketch.fill(255);
-//		for (var i = sketch.diameter*2; i> 0 ; i-=25){
-//			sketch.ellipse(sketch.middX,sketch.middY,i,i);
-//		}
-		sketch.ellipse(sketch.middX,sketch.middY,sketch.diameter*2,sketch.diameter*2);
 		sketch.stroke(255,0,0);
 		for (var i = 0; i < sketch.lines2D.length; i++){
 			sketch.line(sketch.middX,sketch.middY,sketch.lines2D[i][0],sketch.lines2D[i][1]);
@@ -82,6 +84,8 @@ var coriolisSketch = function(sketch) {
 				sketch.lines2D[i][1] = val[1];
 			}
 		}
+		
+		//The Drops
 		if(!sketch.pause){
 			sketch.path[sketch.path.length]=[];
 			sketch.path[sketch.path.length-1][0]=sketch.path[sketch.path.length-2][0];
@@ -103,10 +107,6 @@ var coriolisSketch = function(sketch) {
 		}
 	}
 
-	sketch.draw3D = function(){
-
-	}
-
 	sketch.rotateAtAngle = function(midX, midY, pX, pY, angle){
 		var d = sketch.sqrt(sketch.pow(midX-pX,2)+sketch.pow(midY-pY,2));
 		var phi = sketch.atan2(pY-midY,pX-midX);
@@ -120,9 +120,10 @@ var coriolisSketch = function(sketch) {
 	sketch.mousePressed = function(){
 		if ( sketch.buttonX <= sketch.mouseX && sketch.mouseX <= sketch.buttonX+sketch.buttonW && 
 		     sketch.buttonY <= sketch.mouseY && sketch.mouseY <= sketch.buttonY+sketch.buttonH ){
-			if (sketch.dimension)
-				sketch.setup();
-			else sketch.dimension = true;
+			if (sketch.switch)
+				sketch.switch = false
+			else sketch.switch = true;
 		}
 	}
+	
 }
