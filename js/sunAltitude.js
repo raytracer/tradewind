@@ -29,6 +29,7 @@ var sunSketch = function(sketch) {
 		
 		sketch.sun();
 		
+		sketch.drawDate();
 	}
 	
 	sketch.sun = function(){
@@ -42,4 +43,12 @@ var sunSketch = function(sketch) {
 	
 	}
 	
+	sketch.drawDate = function() {
+		sketch.stroke(0);
+		sketch.fill(0);
+		var textSize = 15;
+		sketch.textFont('Helvetica');
+		sketch.textSize(textSize);
+		sketch.text('Dezember', sketch.w/4 - textSize * 2, sketch.h - textSize);
+	}
 }
