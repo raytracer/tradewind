@@ -5,7 +5,7 @@ $(document).ready(function() {
 		$("#content").append($("#intro-text").html());
 		event.preventDefault();
 	});
-	new Section("Sonnenstand", "#solarAltitude-text", null, quizSunAltitude);
+	new Section("Sonnenstand", "#solarAltitude-text", sunSketch, quizSunAltitude);
 	new Section("Luftdruck", "#konvektion-text", convectionSketch, quizdataConvection);
 	new Section("Tiefdruckrinne","#lowPressure-text",null, quizLowPressure);
 	new Section("Corioliskraft","#coriolis-text", coriolisSketch, quizCoriolis);
