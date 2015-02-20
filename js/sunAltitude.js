@@ -37,11 +37,23 @@ var sunSketch = function(sketch) {
 	
 		var day = sketch.slider.value();
 		//172. Tag: Sonne oben
-		day = (day-172)/365
+		//day = (day+172)%364;
+		var pos=0;
+		if(day<171){
+			pos=171-day}
+		else if(day>354){
+			pos=182-(day-354)}
+		else{pos=day-171
+		day}
+		
+		
+	
+		var scale=0.7;
+		var height= sketch.h/2-sketch.earthsize/2+sketch.earthsize*(1-scale)/2+((day/365)*sketch.earthsize*scale)
 		
 		sketch.stroke(0);
 		sketch.fill(255,255,0);
-		sketch.ellipse(sketch.w/4,sketch.h/2-sketch.earthsize/2+day,sketch.earthsize*0.1,sketch.earthsize*0.1);
+		sketch.ellipse(sketch.w/4,sketch.h/2-sketch.earthsize/2+sketch.earthsize*(1-scale)+((pos/365)*sketch.earthsize*scale),sketch.earthsize*0.1,sketch.earthsize*0.1);
 		
 		
 	
