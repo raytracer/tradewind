@@ -5,10 +5,15 @@ var sunSketch = function(sketch) {
 		sketch.w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 		sketch.h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 		sketch.createCanvas(sketch.w/2.0, sketch.h);
+		
 		sketch.earthsize = Math.min(sketch.w/2,sketch.h)*0.7;
+		
 		sketch.slider = sketch.createSlider(0,364,0);
 		sketch.slider.position(sketch.w/4-sketch.earthsize/2, sketch.earthsize/2+sketch.h/2+10);
 		sketch.slider.size(sketch.earthsize, 10);
+		
+		sketch.earth = sketch.loadImage("images/globe.png");
+		
 		sketch.smooth();
 	
 		
@@ -19,13 +24,12 @@ var sunSketch = function(sketch) {
 		sketch.stroke(0);
 		sketch.fill(255);
 		
+		sketch.imageMode(sketch.CENTER);
+		sketch.image(sketch.earth,sketch.w/4,sketch.h/2,sketch.earthsize,sketch.earthsize);
 		
-		
-		sketch.fill(0,255,0);
-		sketch.ellipse(sketch.w/4,sketch.h/2,sketch.earthsize,sketch.earthsize);
-		sketch.stroke(0);
 		
 		sketch.line(sketch.w/4-sketch.earthsize/2,sketch.h/2,sketch.w/4+sketch.earthsize/2,sketch.h/2)
+		
 		sketch.stroke(255);
 		
 		sketch.sun();
@@ -36,24 +40,27 @@ var sunSketch = function(sketch) {
 	sketch.sun = function(){
 	
 		var day = sketch.slider.value();
-		//172. Tag: Sonne oben
-		//day = (day+172)%364;
+
 		var pos=0;
 		if(day<171){
 			pos=171-day}
 		else if(day>354){
 			pos=182-(day-354)}
 		else{pos=day-171
-		day}
-		
-		
+		day}			
 	
-		var scale=0.7;
-		var height= sketch.h/2-sketch.earthsize/2+sketch.earthsize*(1-scale)/2+((day/365)*sketch.earthsize*scale)
+		var scale = 0.2;
+		var height = sketch.h/2+(pos-91)/182*sketch.earthsize*scale;
 		
+		sketch.strokeWeight(0.5);
+		sketch.line(sketch.w/4-sketch.earthsize/2,sketch.h/2+sketch.earthsize*scale/2,sketch.w/4+sketch.earthsize/2,sketch.h/2+sketch.earthsize*scale/2);
+		sketch.line(sketch.w/4-sketch.earthsize/2,sketch.h/2-sketch.earthsize*scale/2,sketch.w/4+sketch.earthsize/2,sketch.h/2-sketch.earthsize*scale/2);
+		
+		sketch.strokeWeight(1);
 		sketch.stroke(0);
 		sketch.fill(255,255,0);
-		sketch.ellipse(sketch.w/4,sketch.h/2-sketch.earthsize/2+sketch.earthsize*(1-scale)+((pos/365)*sketch.earthsize*scale),sketch.earthsize*0.1,sketch.earthsize*0.1);
+		sketch.ellipse(sketch.w/4,height,sketch.earthsize*0.1,sketch.earthsize*0.1);
+		
 		
 		
 	
