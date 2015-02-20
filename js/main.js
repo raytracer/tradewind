@@ -49,11 +49,6 @@ var quizdataConvection = {questions: [
 		}
 		/*
 		{
-			text: "Die polwärts strömenden Luftmassen, sinken in (ungefähr) welchem Breitengrad wieder ab?",
-			correct: 2,
-			answers: ["15", "20", "30", "45"]
-		},
-		{
 			text: "Welche Art von Luftaustausch verhindert die Passatinversion?",
 			correct: 0,
 			answers: ["vertikalen Luftaustausch", "horizontalen Luftaustausch", "diagonalen Luftaustausch"]
@@ -61,13 +56,50 @@ var quizdataConvection = {questions: [
 		*/
 ]};
 var quizLowPressure = {questions:[
-                                  
+	{
+		text: "Die polwärts strömenden Luftmassen, sinken in (ungefähr) welchem Breitengrad wieder ab?",
+		correct: 1,
+		answers: ["15", "20", "30", "45"]
+	},
+	{
+		text:"Die heftigen Gewittergüsse in der Äquatorialen Tiefdruckrinne werden wie genannt?",
+		correct: 2,
+		answers: ["Zenitsturm", "Kalmen", "Zenitalregen", "Rossbreiten", "Passatgewitter"]		
+	},
+	{
+		text: "In den Hochdruckgebieten ist Himmel ...",
+		correct: 0,
+		answers: ["klar und wolkenlos","bewölkt", "nebelig", "bedeckt durch Gewitterwolken"]
+	},
+	{
+		text: "Dort wo die Luftmassen absinken befinden sich der/die ...",
+		correct: 2,
+		answers: ["tropische Regenwald", "Trockensavanne", "Wüste"]
+	}
 ]};
 var quizCoriolis = {questions:[
-                                  
+    {
+    	text: "Die Corioliskraft wird durch die ... erzeugt.",
+    	correct: 1,
+    	answers: ["Schiefstellung der Erde", "Erdrotation", "Erdumlaufbahn"]
+    },
+    {
+    	text: "Die Erde dreht sich am Äquator ... als am Wendekreis",
+    	correct: 1,
+    	answers: ["langsamer","schneller"]
+    },
+    {
+    	text: "In welche Richtung werden die Winde vom Norden Richtung Äquator abgelenkt?",
+   		correct: 0,
+   		answers: ["Rechts", "Links"]
+    }
 ]};
 var quizCirculation = {questions:[
-                                  
+    {
+    	text: "Wohin weht die Passatzirkulation?",
+    	correct: 3,
+    	answers: ["Norden","Osten","Süden","Westen"]
+    }                              
 ]};
 var Section = function(name, explanationid, sketch, quizdata) {
 	this.explanationid = explanationid;
