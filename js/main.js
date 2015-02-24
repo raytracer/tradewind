@@ -7,9 +7,9 @@ $(document).ready(function() {
 	});
 	new Section("Sonnenstand", "#solarAltitude-text", sunSketch, quizSunAltitude);
 	new Section("Luftdruck", "#konvektion-text", convectionSketch, quizdataConvection);
-	new Section("Tiefdruckrinne","#lowPressure-text",null, quizLowPressure);
+	new Section("Passatzirkulation","#lowPressure-text",null, quizLowPressure);
 	new Section("Corioliskraft","#coriolis-text", coriolisSketch, quizCoriolis);
-	new Section("Passatzirkulation","#passat-text",null, quizCirculation)
+	new Section("Nordostpassat","#passat-text",null, quizCirculation)
 });
 
 var quizSunAltitude = {questions:[
@@ -96,10 +96,21 @@ var quizCoriolis = {questions:[
 ]};
 var quizCirculation = {questions:[
     {
-    	text: "Wohin weht die Passatzirkulation?",
-    	correct: 3,
+    	text: "Aus welcher Richtung weht der Passatwind auf der Nordhalbkugel?",
+    	correct: 1,
     	answers: ["Norden","Osten","Süden","Westen"]
-    }                              
+    },
+    {
+    	text: "Wo treffen sich Nordost- und Südostpassat?",
+    	answers: 3,
+    	answers:["Nordpol","Äquator","Südpol","ITC"]
+    },
+    {
+    	text: "Die ITC zeichent sich am Boden durch folgende Merkmale aus:",
+    	answers: 2,
+    	answers:["extreme Trockenheit", "hohe Windgeschwindigkeiten", "regelmäßige, starke Niederschläge", "dicke Eisschichten"]
+    }
+    
 ]};
 var Section = function(name, explanationid, sketch, quizdata) {
 	this.explanationid = explanationid;
