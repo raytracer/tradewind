@@ -1,8 +1,11 @@
 var coriolisSketch = function(sketch) {
 	sketch.setup = function() {
+		sketch.w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+		sketch.h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+		sketch.createCanvas(sketch.w/2.0, sketch.h);
 	//	var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 	//	var h = Math.max(doucment.documentElement.clientHeight, window.innerHeight || 0);
-		sketch.createCanvas(300, 375);
+	//	sketch.createCanvas(300, 375);
 		sketch.smooth();
 	//	sketch.frameRate(1);
 		

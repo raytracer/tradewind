@@ -7,9 +7,9 @@ $(document).ready(function() {
 	});
 	new Section("Sonnenstand", "#solarAltitude-text", sunSketch, quizSunAltitude);
 	new Section("Luftdruck", "#konvektion-text", convectionSketch, quizdataConvection);
-	new Section("Passatzirkulation","#lowPressure-text",null, quizLowPressure);
+	new Section("Passatzirkulation","#lowPressure-text",circSketch, quizLowPressure);
 	new Section("Corioliskraft","#coriolis-text", coriolisSketch, quizCoriolis);
-	new Section("Nordostpassat","#passat-text",null, quizCirculation)
+	new Section("Nordostpassat","#passat-text",northEastSketch, quizCirculation)
 });
 
 var quizSunAltitude = {questions:[
