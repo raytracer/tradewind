@@ -5,6 +5,11 @@ $(document).ready(function() {
 		$("#content").append($("#intro-text").html());
 		event.preventDefault();
 	});
+	$("#impressum").click(function(event) {
+		$("#content").empty();
+		$("#content").append($("#impressum-text").html());
+		event.preventDefault();
+	});
 	new Section("Sonnenstand", "#solarAltitude-text", sunSketch, quizSunAltitude);
 	new Section("Luftdruck", "#konvektion-text", convectionSketch, quizdataConvection);
 	new Section("Passatzirkulation","#lowPressure-text",circSketch, quizLowPressure);
