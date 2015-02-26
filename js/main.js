@@ -107,12 +107,12 @@ var quizCirculation = {questions:[
     },
     {
     	text: "Wo treffen sich Nordost- und Südostpassat?",
-    	answers: 3,
+    	correct: 3,
     	answers:["Nordpol","Äquator","Südpol","ITC"]
     },
     {
     	text: "Die ITC zeichent sich am Boden durch folgende Merkmale aus:",
-    	answers: 2,
+    	correct: 2,
     	answers:["extreme Trockenheit", "hohe Windgeschwindigkeiten", "regelmäßige, starke Niederschläge", "dicke Eisschichten"]
     }
     
